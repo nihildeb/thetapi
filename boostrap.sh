@@ -37,4 +37,4 @@ git config --global user.email "thetapi@thetanil.com"
 git config --global user.name "Theta Pi"
 
 git clone https://github.com/nihildeb/thetapi.git ~/thetapi
-~/thetapi/bin/update
+~/thetapi/bin/update.sh
