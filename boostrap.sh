@@ -32,3 +32,9 @@ sudo update-locale
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt install -y vim git stow
+
+git config --global user.email "thetapi@thetanil.com"
+git config --global user.name "Theta Pi"
+
+git clone https://github.com/nihildeb/thetapi.git ~/thetapi
+~/thetapi/bin/update
