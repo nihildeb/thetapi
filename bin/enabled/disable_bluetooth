@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+
+sudo systemctl disable hciuart
+sudo systemctl stop hciuart
+sudo systemctl disable bluetooth
+sudo systemctl stop bluetooth
+
+if [ ! -f /etc/modprobe.d/thetapi-blacklist.conf ]; then
+    echo '#bluetooth\nblacklist btbcm\nblacklist hci_uart\n' | sudo tee /etc/modprobe.d/thetapi-blacklist.conf
+    touch "${THETAPI_HOME}/.rebootreq"
+fi
+

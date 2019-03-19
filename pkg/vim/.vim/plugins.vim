@@ -9,35 +9,51 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'altercation/vim-colors-solarized'
 
-" https://github.com/pangloss/vim-javascript                                                                                              
-" js indenting. also does syntax, but this config uses jshint from syntastic    
-Plugin 'pangloss/vim-javascript'                                                
-                                                                                
-" https://vimawesome.com/plugin/markdown-syntax                                 
-Plugin 'plasticboy/vim-markdown'    
+" https://github.com/pangloss/vim-javascript
+" js indenting. also does syntax, but this config uses jshint from syntastic
+Plugin 'pangloss/vim-javascript'
+
+" https://vimawesome.com/plugin/markdown-syntax
+Plugin 'plasticboy/vim-markdown'
 
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\'
 
+Plugin 'w0rp/ale'
+"let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_fixers = {'javascript': ['eslint']}
+let g:ale_fix_on_save = 1
+"let g:ale_set_loclist = 0
+"let g:ale_set_quickfix = 1
 
+" NERDTree
+Plugin 'scrooloose/nerdtree'
+let g:NERDTreeWinPos = "right"
+let NERDTreeShowHidden=0
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let g:NERDTreeWinSize=35
+map <leader>\ :NERDTreeToggle<CR>
+"let g:NERDTreeDirArrows=0
 
+" https://github.com/scrooloose/nerdcommenter
+" <leader>cc and <leader>cu
+Plugin 'scrooloose/nerdcommenter'
 
+Plugin 'valloric/youcompleteme'
+"disable shitty preview window since it never closes
+set completeopt-=preview
+"let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 
-
+" Airline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+let g:airline_theme = 'solarized'
+let g:airline_solarized_bg='dark'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line

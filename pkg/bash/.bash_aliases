@@ -1,7 +1,10 @@
 #!/bin/sh
 
 # Theta Pi
-alias tpi="$HOME/.thetapi/pkg/install.sh"
+alias cdt="cd ${THETAPI_HOME}"
+alias tpi="${THETAPI_HOME}/pkg/install.sh"
+alias update="${THETAPI_HOME}/bin/update"
+alias reshell=". ${HOME}/.bashrc"
 
 # List directory contents
 alias sl=ls

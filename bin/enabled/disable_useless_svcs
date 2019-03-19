@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+
+sudo systemctl disable avahi-daemon
+sudo systemctl stop avahi-daemon
+sudo systemctl disable triggerhappy
+sudo systemctl stop triggerhappy
+
