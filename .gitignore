@@ -62,3 +62,7 @@ typings/
 
 # vim swp
 *.swp
+
+# Vundle Bundles
+pkg/vim/.vim/bundle/
+

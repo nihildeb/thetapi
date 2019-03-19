@@ -9,8 +9,15 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'altercation/vim-colors-solarized'
 
+" https://github.com/pangloss/vim-javascript                                                                                              
+" js indenting. also does syntax, but this config uses jshint from syntastic    
+Plugin 'pangloss/vim-javascript'                                                
+                                                                                
+" https://vimawesome.com/plugin/markdown-syntax                                 
+Plugin 'plasticboy/vim-markdown'    
 
-
+" CtrlP
+Plugin 'ctrlpvim/ctrlp.vim'
 
 
 

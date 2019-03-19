@@ -131,10 +131,17 @@ set foldcolumn=1
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+
 set t_Co=256
-colorscheme solarized
 set background=dark
+try
+    colorscheme solarized
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme darkblue
+endtry
+
+
+syntax enable 
 
 " Set extra options when running in GUI mode
 if has("gui_running")
