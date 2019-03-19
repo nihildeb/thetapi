@@ -18,7 +18,7 @@ Plugin 'plasticboy/vim-markdown'
 
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
-
+let g:ctrlp_show_hidden = 1
 
 
 
