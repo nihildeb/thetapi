@@ -1,6 +1,5 @@
 #!/bin/sh
-set -e
-set -u
+set -eu
 
 sudo systemctl disable hciuart
 sudo systemctl stop hciuart
