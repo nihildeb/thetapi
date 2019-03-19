@@ -1,6 +1,9 @@
 #!/bin/sh
 set -eu
 
+sudo apt -y update
+sudo apt -y upgrade
+
 if [ ! -d "${THETAPI_HOME}/bin/enabled" ] ; then
     echo "script dir not found"
     exit 1

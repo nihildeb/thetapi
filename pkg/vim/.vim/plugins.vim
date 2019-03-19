@@ -42,9 +42,9 @@ map <leader>\ :NERDTreeToggle<CR>
 " <leader>cc and <leader>cu
 Plugin 'scrooloose/nerdcommenter'
 
-Plugin 'valloric/youcompleteme'
+"Plugin 'valloric/youcompleteme'
 "disable shitty preview window since it never closes
-set completeopt-=preview
+"set completeopt-=preview
 "let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 
 " Airline
