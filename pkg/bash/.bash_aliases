@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Theta Pi
+alias tpi="$HOME/.thetapi/pkg/install.sh"
+
 # List directory contents
 alias sl=ls
 alias la='ls -AF'       # Compact view, show hidden
@@ -11,6 +14,7 @@ alias l1='ls -1'
 alias vbr="vim ~/.bashrc"
 alias vbp="vim ~/.bash_profile"
 alias vba="vim ~/.bash_aliases"
+alias vbv="vim ~/.vimrc"
 
 # cd
 alias ..='cd ..'         # Go up one directory
