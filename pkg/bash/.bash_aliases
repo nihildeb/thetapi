@@ -4,6 +4,7 @@
 alias cdt="cd ${THETAPI_HOME}"
 alias update="${THETAPI_HOME}/bin/update"
 alias reshell=". ${HOME}/.bashrc"
+alias reboot="rm -f ${THETAPI_HOME}/.rebootreq && sudo reboot"
 
 # List directory contents
 alias sl=ls
