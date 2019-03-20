@@ -53,6 +53,12 @@ case $1 in
     sudo systemctl enable squid
     sudo systemctl restart squid
     ;;
+  "nginx")
+    sudo apt install -y nginx
+    sudo $STOW -d $PKGDIR -t /etc/nginx nginx
+    sudo systemctl enable nginx
+    sudo systemctl restart nginx
+    ;;
   *)
     $STOW -d $PKGDIR -t $HOME $1
     ;;
