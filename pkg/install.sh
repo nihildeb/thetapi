@@ -2,13 +2,20 @@
 set -eu
 
 STOW=$( which stow )
-PKGDIR=$( dirname $( readlink -f "$0" ) )
-REBOOT_FLAG="${THETAPI_HOME}/.rebootreq"
+PKGDIR=$THETAPI_HOME/pkg
+REBOOT_FLAG=$THETAPI_HOME/.rebootreq
 
-echo "## installing $1"
+echo "## $1 installing..."
+
 case $1 in
   "asd")
     echo "asd installed"
+    ;;
+  "hugo")
+    wget -O $HOME/hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.54.0/hugo_0.54.0_Linux-ARM.deb
+    sudo dpkg -i $HOME/hugo.deb
+    rm $HOME/hugo.deb
+    hugo version
     ;;
   "hosts")
     sudo rm /etc/hosts

@@ -26,6 +26,8 @@ alias ...='cd ../..'     # Go up two directories
 alias ....='cd ../../..' # Go up three directories
 alias -- -='cd -'        # Go back
 
+alias h='history'
+
 # Directory
 alias md='mkdir -p'
 alias rd='rmdir'

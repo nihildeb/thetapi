@@ -57,7 +57,7 @@ imap <F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
 map <F4> :execute "vimgrep /" . expand("<cword>") . "/j app/** config/** src/**" <Bar> cw<CR>
 
 " F5 cleans all trailing whitespace and clear highlighting
-nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+nnoremap <silent> <F5> :retab<Bar>:let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " Use <F7> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F7>
