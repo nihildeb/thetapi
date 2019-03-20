@@ -10,6 +10,10 @@ case $1 in
   "asd")
     echo "asd installed"
     ;;
+  "hosts")
+    sudo rm /etc/hosts
+    sudo $STOW -d $PKGDIR -t /etc hosts
+    ;;
   "disable_useless")
     sudo systemctl disable avahi-daemon
     sudo systemctl stop avahi-daemon
