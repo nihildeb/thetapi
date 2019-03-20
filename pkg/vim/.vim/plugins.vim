@@ -19,7 +19,7 @@ Plugin 'plasticboy/vim-markdown'
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\'
+let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|bundle'
 
 Plugin 'w0rp/ale'
 "let g:ale_fixers = {'javascript': ['prettier', 'eslint']}

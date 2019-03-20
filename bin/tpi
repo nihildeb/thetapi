@@ -1,0 +1,3 @@
+#!/bin/sh
+${THETAPI_HOME}/pkg/install.sh "$@"
+

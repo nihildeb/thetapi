@@ -2,7 +2,6 @@
 
 # Theta Pi
 alias cdt="cd ${THETAPI_HOME}"
-alias tpi="${THETAPI_HOME}/pkg/install.sh"
 alias update="${THETAPI_HOME}/bin/update"
 alias reshell=". ${HOME}/.bashrc"
 
@@ -89,14 +88,14 @@ alias gexport='git archive --format zip --output'
 # systemctl
 case $OSTYPE in
     linux*)
-	alias sc='systemctl'
-	alias scr='systemctl daemon-reload'
-	alias scu='systemctl --user'
-	alias scur='systemctl --user daemon-reload'
-	alias sce='systemctl stop'
-	alias scue='systemctl --user stop'
-	alias scs='systemctl start'
-	alias scus='systemctl --user start'
+  alias sc='systemctl'
+  alias scr='systemctl daemon-reload'
+  alias scu='systemctl --user'
+  alias scur='systemctl --user daemon-reload'
+  alias sce='systemctl stop'
+  alias scue='systemctl --user stop'
+  alias scs='systemctl start'
+  alias scus='systemctl --user start'
     ;;
 esac
 

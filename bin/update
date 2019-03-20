@@ -4,11 +4,5 @@ set -eu
 sudo apt -y update
 sudo apt -y upgrade
 
-if [ ! -d "${THETAPI_HOME}/bin/enabled" ] ; then
-    echo "script dir not found"
-    exit 1
-fi
-
-find "${THETAPI_HOME}/bin" -type f -exec chmod +x {} \;
-find "${THETAPI_HOME}/bin/enabled" -type f -exec echo {} \; -exec {} \;
+find $THETAPI_HOME/pkg/* -maxdepth 0 -type d -exec bash -c 'tpi $(basename {})' \;
 
