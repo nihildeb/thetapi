@@ -16,6 +16,8 @@ case $1 in
     sudo dpkg -i $HOME/hugo.deb
     rm $HOME/hugo.deb
     hugo version
+    cd $THETAPI_HOME/ui
+    hugo
     ;;
   "hosts")
     sudo rm /etc/hosts
@@ -53,12 +55,20 @@ case $1 in
     sudo systemctl disable dnsmasq
     sudo systemctl stop dnsmasq
     ;;
-  "squid")
-    sudo apt install -y squid
-    sudo rm /etc/squid/squid.conf
-    sudo $STOW -d $PKGDIR -t /etc/squid squid
-    sudo systemctl enable squid
-    sudo systemctl restart squid
+  "polipo")
+    sudo apt install -y polipo
+    sudo $STOW -d $PKGDIR -t /etc/polipo polipo
+    sudo systemctl enable polipo
+    sudo systemctl restart polipo
+    ;;
+  "privoxy")
+    sudo apt install -y privoxy
+    [ -f /etc/privoxy/config ] && sudo rm /etc/privoxy/config
+    [ -f /etc/privoxy/user.action ] && sudo rm /etc/privoxy/user.action
+    [ -f /etc/privoxy/user.filter ] && sudo rm /etc/privoxy/user.filter
+    sudo $STOW -d $PKGDIR -t /etc/privoxy privoxy
+    sudo systemctl enable privoxy
+    sudo systemctl restart privoxy
     ;;
   "nginx")
     sudo apt install -y nginx

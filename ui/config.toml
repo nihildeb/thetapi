@@ -1,3 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "http://local.ipsaw.com/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Theta Pi UI"
+theme = "hugrid"

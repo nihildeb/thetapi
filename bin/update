@@ -3,6 +3,7 @@ set -eu
 
 #sudo apt -y update
 #sudo apt -y upgrade
+#sudo apt autoremove
 
 find $THETAPI_HOME/pkg/* -maxdepth 0 -name "[!.]*" -type d -exec bash -c 'tpi $(basename {})' \;
 
