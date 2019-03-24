@@ -50,10 +50,10 @@ case $1 in
   "dnsmasq")
     sudo apt install -y dnsmasq
     sudo $STOW -d $PKGDIR -t /etc dnsmasq
-    #sudo systemctl enable dnsmasq
-    #sudo systemctl restart dnsmasq
-    sudo systemctl disable dnsmasq
-    sudo systemctl stop dnsmasq
+    sudo systemctl enable dnsmasq
+    sudo systemctl restart dnsmasq
+    #sudo systemctl disable dnsmasq
+    #sudo systemctl stop dnsmasq
     ;;
   "polipo")
     sudo apt install -y polipo

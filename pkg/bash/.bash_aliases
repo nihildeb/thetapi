@@ -5,6 +5,7 @@ alias cdt="cd ${THETAPI_HOME}"
 alias update="${THETAPI_HOME}/bin/update"
 alias reshell=". ${HOME}/.bashrc"
 alias reboot="rm -f ${THETAPI_HOME}/.rebootreq && sudo reboot"
+alias dump='sudo tcpdump -i eth0 -s 1500 port not 22 and port not 53 and port not 1900 and port not https and port not http and port not socks'
 
 # List directory contents
 alias sl=ls

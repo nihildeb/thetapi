@@ -27,9 +27,9 @@ ff02::3 ip6-allhosts
 0.0.0.0 0.0.0.0
 
 # Custom host records are listed here.
-192.168.178.36 proxy
-192.168.178.36 wpad
-192.168.178.36 wpad.ipsaw.com
+192.168.3.14 proxy
+192.168.3.14 wpad
+192.168.3.14 wpad.ipsaw.com
 0.0.0.0 graph.facebook.com
 0.0.0.0 blocked.ipsaw.com
 0.0.0.0 consent-pref.trustarc.com
