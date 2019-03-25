@@ -3,7 +3,8 @@
 # Theta Pi
 alias cdt="cd ${THETAPI_HOME}"
 alias update="${THETAPI_HOME}/bin/update"
-alias tp_set_remote='git remote set-url --push origin git@github.com:nihildeb/thetapi'
+alias tp_git_ssh='git remote set-url --push origin git@github.com:nihildeb/thetapi'
+alias tp_git_http='git remote set-url --push origin https://github.com/nihildeb/thetapi'
 alias reshell=". ${HOME}/.bashrc"
 alias reboot="rm -f ${THETAPI_HOME}/.rebootreq && sudo reboot"
 alias pi='ssh pi@192.168.3.14'
