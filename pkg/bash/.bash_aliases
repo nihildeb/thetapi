@@ -3,9 +3,27 @@
 # Theta Pi
 alias cdt="cd ${THETAPI_HOME}"
 alias update="${THETAPI_HOME}/bin/update"
-alias reshell=". ${HOME}/.bashrc"
 alias reboot="rm -f ${THETAPI_HOME}/.rebootreq && sudo reboot"
+alias pi='ssh pi@192.168.3.14'
+alias pi2='ssh pi@192.168.3.15'
+alias alpi='ssh root@192.168.178.48'
+
+# deb / rasp system
+alias flush='dscacheutil -flushcache'
+alias cls='clear'
+alias h='history'
+alias bios='sudo systemctl reboot --firmware-setup'
+alias sleep_monitor='sleep 1; xset dpms force off'
 alias dump='sudo tcpdump -i eth0 -s 1500 port not 22 and port not 53 and port not 1900 and port not https and port not http and port not socks'
+
+# hugo
+alias hug='hugo server --bind 0.0.0.0 --cleanDestinationDir -p 8080 -wD'
+alias hugod='sudo hugo server -p 80 -wD'
+alias tre='tree ~/site/content; tree ~/site/layouts'
+
+# i3
+alias keyls='xmodmap -pke'
+alias keyshow='xev'
 
 # List directory contents
 alias sl=ls
@@ -14,11 +32,17 @@ alias ll='ls -al'
 alias l='ls -a'
 alias l1='ls -1'
 
+# list processes
+alias psa='ps ax'
+alias psag='ps ax|grep -i $@'
+
 # Shortcuts to edit startup files
 alias vbr="vim ~/.bashrc"
 alias vbp="vim ~/.bash_profile"
 alias vba="vim ~/.bash_aliases"
+alias reshell=". ${HOME}/.bash_profile"
 alias vbv="vim ~/.vimrc"
+alias vimrc='vim ~/.vimrc'
 
 # cd
 alias ..='cd ..'         # Go up one directory
@@ -26,8 +50,6 @@ alias cd..='cd ..'       # Common misspelling for going up one directory
 alias ...='cd ../..'     # Go up two directories
 alias ....='cd ../../..' # Go up three directories
 alias -- -='cd -'        # Go back
-
-alias h='history'
 
 # Directory
 alias md='mkdir -p'
