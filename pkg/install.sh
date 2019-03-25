@@ -23,6 +23,7 @@ case $1 in
     ;;
   "git")
     # TODO: make vars
+    git config --global push.default simple
     git config --global user.email "thetapi@thetanil.com"
     git config --global user.name "thetapi"
     ;;
