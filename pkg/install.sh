@@ -11,6 +11,10 @@ case $1 in
   "asd")
     echo "asd installed"
     ;;
+  "git")
+    git config --global user.email "thetapi@thetanil.com"
+    git config --global user.name "thetapi"
+    ;;
   "hugo")
     wget -O $HOME/hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.54.0/hugo_0.54.0_Linux-ARM.deb
     sudo dpkg -i $HOME/hugo.deb
