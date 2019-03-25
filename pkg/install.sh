@@ -6,16 +6,28 @@ PKGDIR=$THETAPI_HOME/pkg
 REBOOT_FLAG=$THETAPI_HOME/.rebootreq
 
 echo "## $1 installing..."
+echo "## TODO: ADD RPI CHECKS"
+echo "## TODO: BACKUP STOWED FILES"
+
 
 case $1 in
-  "asd")
-    echo "asd installed"
+  "keyboard")
+    # TODO: /etc/defaults/keyboard remap caps:escape
+    ;;
+  "sshkeys")
+    if [ -d $HOME/.ssh ] && [ ! -f $HOME/.ssh/id_rsa ] && [ ! -f $HOME/.ssh/id_rsa.pub ]; then
+      ssh-keygen -trsa -N "" -f $HOME/.ssh/id_rsa
+    else
+      echo "could not generate ssh keys (already exist or ~/.ssh missing)"
+    fi
     ;;
   "git")
+    # TODO: make vars
     git config --global user.email "thetapi@thetanil.com"
     git config --global user.name "thetapi"
     ;;
   "hugo")
+    # TODO: AMD for deb, ARM for Pi
     wget -O $HOME/hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.54.0/hugo_0.54.0_Linux-ARM.deb
     sudo dpkg -i $HOME/hugo.deb
     rm $HOME/hugo.deb
@@ -24,6 +36,7 @@ case $1 in
     hugo
     ;;
   "hosts")
+    #TODO: Download latest and schedule update job
     sudo rm /etc/hosts
     sudo $STOW -d $PKGDIR -t /etc hosts
     ;;
@@ -39,8 +52,8 @@ case $1 in
     sudo systemctl disable bluetooth
     sudo systemctl stop bluetooth
 
-    if [ ! -f /etc/modprobe.d/thetapi-blacklist.conf ]; then
-      echo '#bluetooth\nblacklist btbcm\nblacklist hci_uart\n' | sudo tee /etc/modprobe.d/thetapi-blacklist.conf
+    if [ ! -f /etc/modprobe.d/blacklist-bluetooth.conf ]; then
+      echo '#bluetooth\nblacklist btbcm\nblacklist hci_uart\n' | sudo tee /etc/modprobe.d/blacklist-bluetooth.conf
       touch "$REBOOT_FLAG"
     fi
     ;;
@@ -80,9 +93,39 @@ case $1 in
     sudo systemctl enable nginx
     sudo systemctl restart nginx
     ;;
+  "disable_nvaudio")
+    # TODO: only for debian dev box
+    if [ ! -f /etc/modprobe.d/blacklist-nvaudio.conf ]; then
+      echo 'blacklist snd-hda-intel\n' | sudo tee /etc/modprobe.d/blacklist-nvaudio.conf
+      touch "$REBOOT_FLAG"
+    fi
+    ;;
+  "pulse_audio")
+    # TODO: pulse audio setup for debian dev box
+    ;;
+  "dropbox")
+    # TODO: dropbox for debian dev box
+    # TODO: owncloud server
+    ;;
+  "spotify")
+    # TODO: spotify for debian dev box
+    ;;
+  "terminator")
+    # TODO: terminatorsetup for debian dev box
+    ;;
+  "debian_gui")
+    # TODO: debian stuff for dev box
+    # getty autologon
+    # loginconfig virtual terminals
+    # i3 + config (stow in ~/.config)
+    # xterm
+    # terminator + config
+    # firefox-esr
+    ;;
   *)
     $STOW -d $PKGDIR -t $HOME $1
     ;;
 esac
 
+reshell
 echo "## $1 installed."
