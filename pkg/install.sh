@@ -9,7 +9,6 @@ echo "## $1 installing..."
 echo "## TODO: ADD RPI CHECKS"
 echo "## TODO: BACKUP STOWED FILES"
 
-
 case $1 in
   "keyboard")
     # TODO: /etc/defaults/keyboard remap caps:escape
@@ -109,10 +108,19 @@ case $1 in
     # TODO: owncloud server
     ;;
   "spotify")
-    # TODO: spotify for debian dev box
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+    echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+    sudo apt update
+    sudo apt install spotify-client
     ;;
   "terminator")
     # TODO: terminatorsetup for debian dev box
+    ;;
+  "i3")
+    sudo apt install i3
+    [ -f $HOME/.config/i3/config ] && \
+      mv $HOME/.config/i3/config $HOME/.config/i3/config.thetapibak
+    $STOW -d $PKGDIR -t $HOME/.config/i3 $1
     ;;
   "debian_gui")
     # TODO: debian stuff for dev box
@@ -128,5 +136,4 @@ case $1 in
     ;;
 esac
 
-reshell
 echo "## $1 installed."
