@@ -2,13 +2,13 @@
 set -eu
 
 STOW=$( which stow )
+APT="sudo apt -y -qq install $@"
 PKG_DIR=$THETAPI_HOME/pkg
 REBOOT_FLAG=$THETAPI_HOME/.rebootreq
 HUGO_URL="https://github.com/gohugoio/hugo/releases/download/v0.54.0/hugo_0.54.0_Linux-ARM.deb"
 DEV_PUBKEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDXFbPpSVUYrNh1w5CyOjbFvYFjOWgr6lTIf2beKKLzVD/gbWHlp2gtZ9//zgxzUJ2Ml1tZ7vwOSR4vhMqRJ8eNjl6pp2e1jsxUE4ipHBsj2S+VWIiDJ5JYZ4SzNuL4fduASUmeHB+K7Lxe5zw3Ri8+Z0C9XjLwPqri8rR9sirBuZiobINTwu0IJMFrZmCloZ8r1gg2IgulRfT1C0f+P9coYjDkuRa4W1LdRmAsmKOTNG14YEWCQjRL8q4qtWF1hQ1KMBktrpEYh2uhZiKcPAFDlJXxrIEYtmQ8rGqL17a4Z50NhryW/plKLS/mDUHsW5XNPgvr8eILWid2AkT80pfB thetapi@thetanil.com'
 
 echo "## $1 installing..."
-echo "## TODO: BACKUP STOWED FILES"
 
 case $1 in
   "bash")
@@ -42,7 +42,7 @@ case $1 in
     ;;
   "dnsmasq")
     if [ -f /etc/rpi-issue ]; then
-      sudo apt install -y $1
+      $APT $1
       sudo $STOW -d $PKG_DIR -t /etc $1
       sudo systemctl enable $1
       sudo systemctl restart $1
@@ -78,7 +78,7 @@ case $1 in
     ;;
   "i3")
     if [ ! -f /etc/rpi-issue ]; then
-      sudo apt install $1
+      $APT $1
       [ -f $HOME/.config/i3/config ] && \
         mv $HOME/.config/i3/config $HOME/.config/i3/config.thetapibak
       $STOW -d $PKG_DIR -t $HOME/.config/i3 $1
@@ -89,7 +89,7 @@ case $1 in
     ;;
   "nginx")
     if [ -f /etc/rpi-issue ]; then
-      sudo apt install -y $1
+      $APT -y $1
       sudo $STOW -d $PKG_DIR -t /etc/nginx $1
       sudo systemctl enable $1
       sudo systemctl restart $1
@@ -97,7 +97,7 @@ case $1 in
     ;;
   "polipo")
     if [ -f /etc/rpi-issue ]; then
-      sudo apt install -y $1
+      $APT $1
       sudo $STOW -d $PKG_DIR -t /etc/polipo $1
       sudo systemctl enable $1
       sudo systemctl restart $1
@@ -105,7 +105,7 @@ case $1 in
     ;;
   "privoxy")
     if [ -f /etc/rpi-issue ]; then
-      sudo apt install -y $1
+      $APT $1
       [ -f /etc/privoxy/config ] && sudo rm /etc/privoxy/config
       [ -f /etc/privoxy/user.action ] && sudo rm /etc/privoxy/user.action
       [ -f /etc/privoxy/user.filter ] && sudo rm /etc/privoxy/user.filter
@@ -116,7 +116,7 @@ case $1 in
     ;;
   "pulse_audio")
     if [ ! -f /etc/rpi-issue ]; then
-      sudo apt install -y pulseaudio pavucontrol
+      $APT pulseaudio pavucontrol
     fi
     ;;
   "spotify")
@@ -126,7 +126,7 @@ case $1 in
         --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
       echo $repo | sudo tee /etc/apt/sources.list.d/spotify.list
       sudo apt update
-      sudo apt install -y spotify-client
+      $APT spotify-client
     fi
     ;;
   "sshkeys")
@@ -168,4 +168,3 @@ case $1 in
     ;;
 esac
 
-echo "## $1 installed."
