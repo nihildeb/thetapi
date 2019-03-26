@@ -32,7 +32,7 @@ case $1 in
     ;;
   "hugo")
     # TODO: AMD for deb, ARM for Pi
-    if [ -f /etc/rpi-issue ] && [ ! -f $(which hugo) ]; then
+    if [ -f /etc/rpi-issue ] && [ ! -f "$(which hugo)" ]; then
       wget -O $HOME/hugo.deb $HUGO_URL
       sudo dpkg -i $HOME/hugo.deb
       rm $HOME/hugo.deb
