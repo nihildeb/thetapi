@@ -1,15 +1,31 @@
 #!/bin/sh
 
+countdown()
+(
+  IFS=:
+  set -- $*
+  secs=$(( ${1#0} * 3600 + ${2#0} * 60 + ${3#0} ))
+  while [ $secs -gt 0 ]
+  do
+    sleep 1 &
+    printf "\r%02d:%02d:%02d" $((secs/3600)) $(( (secs/60)%60)) $((secs%60))
+    secs=$(( $secs - 1 ))
+    wait
+  done
+  echo
+)
+
 # Theta Pi
 alias cdt="cd ${THETAPI_HOME}"
 alias update="${THETAPI_HOME}/bin/update"
 alias tp_git_ssh='git remote set-url --push origin git@github.com:nihildeb/thetapi'
 alias tp_git_http='git remote set-url --push origin https://github.com/nihildeb/thetapi'
-alias reshell=". ${HOME}/.bashrc"
+alias reshell=". ${HOME}/.profile"
 alias reboot="rm -f ${THETAPI_HOME}/.rebootreq && sudo reboot"
 alias pi='ssh pi@192.168.3.14'
 alias pi2='ssh pi@192.168.3.15'
 alias alpi='ssh root@192.168.178.48'
+alias timer=countdown $@
 
 # deb / rasp system
 alias flush='dscacheutil -flushcache'
@@ -53,7 +69,6 @@ alias psag='ps ax|grep -i $@'
 alias vbr="vim ~/.bashrc"
 alias vbp="vim ~/.bash_profile"
 alias vba="vim ~/.bash_aliases"
-alias reshell=". ${HOME}/.bash_profile"
 alias vbv="vim ~/.vimrc"
 alias vimrc='vim ~/.vimrc'
 
