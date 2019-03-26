@@ -10,7 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 #exec --no-startup-id ~/.dropbox-dist/dropboxd
 #exec --no-startup-id /usr/bin/steam
-exec --no-startup-id xrandr --output HDMI-0 --auto --above DP-0
+exec --no-startup-id xrandr --output DP-0 --auto --below HDMI-0
 
 set $mod Mod1
 
