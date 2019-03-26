@@ -32,7 +32,7 @@ case $1 in
     ;;
   "hugo")
     # TODO: AMD for deb, ARM for Pi
-    if [ -f /etc/rpi-issue ]; then
+    if [ -f /etc/rpi-issue ] && [ ! -f $(which hugo) ]; then
       wget -O $HOME/hugo.deb $HUGO_URL
       sudo dpkg -i $HOME/hugo.deb
       rm $HOME/hugo.deb
@@ -107,7 +107,7 @@ case $1 in
     fi
     ;;
   "disable_nvaudio")
-    if [ -f /etc/debian_version ]; then
+    if [ ! -f /etc/rpi-issue ]; then
       if [ ! -f /etc/modprobe.d/blacklist-nvaudio.conf ]; then
         echo 'blacklist snd-hda-intel\n' | sudo tee /etc/modprobe.d/blacklist-nvaudio.conf
         touch "$REBOOT_FLAG"
@@ -123,7 +123,7 @@ case $1 in
     # TODO: owncloud server
     ;;
   "spotify")
-    if [ -f /etc/debian_version ]; then
+    if [ ! -f /etc/rpi-issue ]; then
       repo = 'deb http://repository.spotify.com stable non-free'
       sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
         --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
@@ -133,12 +133,12 @@ case $1 in
     fi
     ;;
   "terminator")
-    if [ -f /etc/debian_version ]; then
+    if [ ! -f /etc/rpi-issue ]; then
       echo 'TODO'
     fi
     ;;
   "i3")
-    if [ -f /etc/debian_version ]; then
+    if [ ! -f /etc/rpi-issue ]; then
       sudo apt install i3
       [ -f $HOME/.config/i3/config ] && \
         mv $HOME/.config/i3/config $HOME/.config/i3/config.thetapibak
