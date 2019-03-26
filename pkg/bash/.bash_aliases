@@ -27,6 +27,13 @@ alias pi2='ssh pi@192.168.3.15'
 alias alpi='ssh root@192.168.178.48'
 alias timer=countdown $@
 
+# networking
+alias ipt='sudo iptables'
+alias iptl='sudo iptables-restore < '
+alias ipts='sudo iptables-save > '
+alias iptf='sudo iptables -F'
+alias ts='sudo iptables -n -L -v --line-numbers'
+
 # deb / rasp system
 alias flush='dscacheutil -flushcache'
 alias cls='clear'
