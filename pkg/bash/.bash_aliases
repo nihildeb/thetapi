@@ -36,6 +36,7 @@ alias ts='sudo iptables -n -L -v --line-numbers'
 
 # deb / rasp system
 alias flush='dscacheutil -flushcache'
+alias dhcp_renew='sudo dhclient -r'
 alias cls='clear'
 alias h='history'
 alias bios='sudo systemctl reboot --firmware-setup'
