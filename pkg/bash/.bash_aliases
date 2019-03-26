@@ -29,6 +29,7 @@ alias timer=countdown $@
 
 # deb / rasp system
 alias flush='dscacheutil -flushcache'
+alias dhcp_renew='sudo dhclient -r'
 alias cls='clear'
 alias h='history'
 alias bios='sudo systemctl reboot --firmware-setup'
