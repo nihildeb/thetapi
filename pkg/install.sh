@@ -115,8 +115,9 @@ case $1 in
     fi
     ;;
   "pulse_audio")
-    # TODO: pulse audio setup for debian dev box
-    sudo apt install -y pulseaudio pavucontrol
+    if [ ! -f /etc/rpi-issue ]; then
+      sudo apt install -y pulseaudio pavucontrol
+    fi
     ;;
   "spotify")
     if [ ! -f /etc/rpi-issue ]; then
@@ -125,7 +126,7 @@ case $1 in
         --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
       echo $repo | sudo tee /etc/apt/sources.list.d/spotify.list
       sudo apt update
-      sudo apt install spotify-client
+      sudo apt install -y spotify-client
     fi
     ;;
   "sshkeys")
