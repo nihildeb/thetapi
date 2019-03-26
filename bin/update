@@ -1,11 +1,14 @@
 #!/bin/sh
 set -eu
 
-sudo apt -y update
-sudo apt -y upgrade
-sudo apt autoremove
+sudo apt -q -y update
+sudo apt -q -y upgrade
 
 cd $THETAPI_HOME
 git pull
 find $THETAPI_HOME/pkg/* -maxdepth 0 -name "[!.]*" -type d -exec bash -c 'tpi $(basename {})' \;
 
+sudo apt -q autoremove
+
+# TODO: reboot if flagged
+echo "update complete, reboot now"

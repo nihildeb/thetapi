@@ -5,7 +5,6 @@ STOW=$( which stow )
 APT="sudo apt -y -qq install $@"
 PKG_DIR=$THETAPI_HOME/pkg
 REBOOT_FLAG=$THETAPI_HOME/.rebootreq
-HUGO_URL="https://github.com/gohugoio/hugo/releases/download/v0.54.0/hugo_0.54.0_Linux-ARM.deb"
 DEV_PUBKEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDXFbPpSVUYrNh1w5CyOjbFvYFjOWgr6lTIf2beKKLzVD/gbWHlp2gtZ9//zgxzUJ2Ml1tZ7vwOSR4vhMqRJ8eNjl6pp2e1jsxUE4ipHBsj2S+VWIiDJ5JYZ4SzNuL4fduASUmeHB+K7Lxe5zw3Ri8+Z0C9XjLwPqri8rR9sirBuZiobINTwu0IJMFrZmCloZ8r1gg2IgulRfT1C0f+P9coYjDkuRa4W1LdRmAsmKOTNG14YEWCQjRL8q4qtWF1hQ1KMBktrpEYh2uhZiKcPAFDlJXxrIEYtmQ8rGqL17a4Z50NhryW/plKLS/mDUHsW5XNPgvr8eILWid2AkT80pfB thetapi@thetanil.com'
 
 echo "## $1 installing..."
@@ -67,8 +66,18 @@ case $1 in
     ;;
   "hugo")
     # TODO: AMD for deb, ARM for Pi
-    if [ -f /etc/rpi-issue ] && [ ! -f "$(which hugo)" ]; then
-      wget -O $HOME/hugo.deb $HUGO_URL
+    if [ ! -f "$(command -v hugo)" ]; then
+      hugo_dl="https://github.com/gohugoio/hugo/releases/download"
+      hugo_arm="/v0.54.0/hugo_0.54.0_Linux-ARM.deb"
+      hugo_amd="/v0.54.0/hugo_0.54.0_Linux-64bit.deb"
+      #hugo_url=""
+      if [ -f /etc/rpi-issue ]; then
+        hugo_url="$hugo_dl$hugo_arm"
+      elif [ ! -f /etc/rpi-issue ]; then
+        hugo_url="$hugo_dl$hugo_amd"
+      fi
+      echo $hugo_url
+      wget -O $HOME/hugo.deb $hugo_url
       sudo dpkg -i $HOME/hugo.deb
       rm $HOME/hugo.deb
       hugo version
