@@ -7,36 +7,36 @@ PKG_DIR=$THETAPI_HOME/pkg
 REBOOT_FLAG=$THETAPI_HOME/.rebootreq
 DEV_PUBKEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDXFbPpSVUYrNh1w5CyOjbFvYFjOWgr6lTIf2beKKLzVD/gbWHlp2gtZ9//zgxzUJ2Ml1tZ7vwOSR4vhMqRJ8eNjl6pp2e1jsxUE4ipHBsj2S+VWIiDJ5JYZ4SzNuL4fduASUmeHB+K7Lxe5zw3Ri8+Z0C9XjLwPqri8rR9sirBuZiobINTwu0IJMFrZmCloZ8r1gg2IgulRfT1C0f+P9coYjDkuRa4W1LdRmAsmKOTNG14YEWCQjRL8q4qtWF1hQ1KMBktrpEYh2uhZiKcPAFDlJXxrIEYtmQ8rGqL17a4Z50NhryW/plKLS/mDUHsW5XNPgvr8eILWid2AkT80pfB thetapi@thetanil.com'
 
-echo "## $1 installing..."
+echo "TP: $1 installing..."
 
 case $1 in
   "bash")
     $STOW -d $PKG_DIR -t $HOME $1
     ;;
   "disable_bluetooth")
-    sudo systemctl disable hciuart
+    sudo systemctl disable hciuart > /dev/null 2>&1
     sudo systemctl stop hciuart
-    sudo systemctl disable bluetooth
+    sudo systemctl disable bluetooth > /dev/null 2>&1
     sudo systemctl stop bluetooth
 
     if [ ! -f /etc/modprobe.d/blacklist-bluetooth.conf ]; then
       CONF = '#bluetooth\nblacklist btbcm\nblacklist hci_uart\n'
-      echo $CONF | sudo tee /etc/modprobe.d/blacklist-bluetooth.conf
+      echo $CONF > /etc/modprobe.d/blacklist-bluetooth.conf
       touch "$REBOOT_FLAG"
     fi
     ;;
   "disable_nvaudio")
     if [ ! -f /etc/rpi-issue ]; then
       if [ ! -f /etc/modprobe.d/blacklist-nvaudio.conf ]; then
-        echo 'blacklist snd-hda-intel\n' | sudo tee /etc/modprobe.d/blacklist-nvaudio.conf
+        echo 'blacklist snd-hda-intel\n' > /etc/modprobe.d/blacklist-nvaudio.conf
         touch "$REBOOT_FLAG"
       fi
     fi
     ;;
   "disable_useless")
-    sudo systemctl disable avahi-daemon
+    sudo systemctl disable avahi-daemon > /dev/null 2>&1
     sudo systemctl stop avahi-daemon
-    sudo systemctl disable triggerhappy
+    sudo systemctl disable triggerhappy > /dev/null 2>&1
     sudo systemctl stop triggerhappy
     ;;
   "dnsmasq")
@@ -50,6 +50,7 @@ case $1 in
   "dropbox")
     # TODO: dropbox for debian dev box
     # TODO: owncloud server
+    echo "TP: TODO"
     ;;
   "git")
     # TODO: make vars
@@ -86,7 +87,7 @@ case $1 in
     fi
     ;;
   "i3")
-    if [ ! -f /etc/rpi-issue ]; then
+    if [ ! -f "$(command -v i3)" ] && [ ! -f /etc/rpi-issue ]; then
       $APT $1
       [ -f $HOME/.config/i3/config ] && \
         mv $HOME/.config/i3/config $HOME/.config/i3/config.thetapibak
@@ -95,6 +96,7 @@ case $1 in
     ;;
   "keyboard")
     # TODO: /etc/defaults/keyboard remap caps:escape
+    echo "TP: TODO"
     ;;
   "nginx")
     if [ -f /etc/rpi-issue ]; then
@@ -123,18 +125,18 @@ case $1 in
       sudo systemctl restart $1
     fi
     ;;
-  "pulse_audio")
-    if [ ! -f /etc/rpi-issue ]; then
+  "pulseaudio")
+    if [ ! -f "$(command -v pulseaudio)" ] && [ ! -f /etc/rpi-issue ]; then
       $APT pulseaudio pavucontrol
     fi
     ;;
   "spotify")
-    if [ ! -f /etc/rpi-issue ]; then
-      repo = 'deb http://repository.spotify.com stable non-free'
+    if [ ! -f "$(command -v spotify)" ] && [ ! -f /etc/rpi-issue ]; then
+      repo='deb http://repository.spotify.com stable non-free'
       sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
         --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
-      echo $repo | sudo tee /etc/apt/sources.list.d/spotify.list
-      sudo apt update
+      echo $repo > /etc/apt/sources.list.d/spotify.list
+      sudo apt -y update
       $APT spotify-client
     fi
     ;;
@@ -144,7 +146,7 @@ case $1 in
        [ ! -f $HOME/.ssh/id_rsa.pub ]; then
       ssh-keygen -trsa -N "" -f $HOME/.ssh/id_rsa
     else
-      echo "could not generate ssh keys (already exist or ~/.ssh missing)"
+      echo "TP: ssh keys already exist or ~/.ssh missing"
     fi
     if [ -f /etc/rpi-issue ] && [ ! -f "$HOME/.ssh/authorized_keys2" ]; then
       echo $DEV_PUBKEY >> $HOME/.ssh/authorized_keys2
@@ -152,7 +154,7 @@ case $1 in
     ;;
   "terminator")
     if [ ! -f /etc/rpi-issue ]; then
-      echo 'TODO'
+      echo 'TP: TODO'
     fi
     ;;
   "vim")
