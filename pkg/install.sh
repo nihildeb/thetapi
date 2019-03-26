@@ -139,7 +139,7 @@ case $1 in
     ;;
   "i3")
     if [ ! -f /etc/rpi-issue ]; then
-      sudo apt install i3
+      sudo apt install $1
       [ -f $HOME/.config/i3/config ] && \
         mv $HOME/.config/i3/config $HOME/.config/i3/config.thetapibak
       $STOW -d $PKG_DIR -t $HOME/.config/i3 $1
