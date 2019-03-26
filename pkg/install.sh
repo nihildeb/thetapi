@@ -11,46 +11,8 @@ echo "## $1 installing..."
 echo "## TODO: BACKUP STOWED FILES"
 
 case $1 in
-  "keyboard")
-    # TODO: /etc/defaults/keyboard remap caps:escape
-    ;;
-  "sshkeys")
-    if [ -d $HOME/.ssh ] && \
-       [ ! -f $HOME/.ssh/id_rsa ] && \
-       [ ! -f $HOME/.ssh/id_rsa.pub ]; then
-      ssh-keygen -trsa -N "" -f $HOME/.ssh/id_rsa
-    else
-      echo "could not generate ssh keys (already exist or ~/.ssh missing)"
-    fi
-    echo $DEV_PUBKEY >> $HOME/.ssh/authorized_keys2
-    ;;
-  "git")
-    # TODO: make vars
-    git config --global push.default simple
-    git config --global user.email "thetapi@thetanil.com"
-    git config --global user.name "thetapi"
-    ;;
-  "hugo")
-    # TODO: AMD for deb, ARM for Pi
-    if [ -f /etc/rpi-issue ] && [ ! -f "$(which hugo)" ]; then
-      wget -O $HOME/hugo.deb $HUGO_URL
-      sudo dpkg -i $HOME/hugo.deb
-      rm $HOME/hugo.deb
-      hugo version
-      cd $THETAPI_HOME/ui
-      hugo
-    fi
-    ;;
-  "hosts")
-    #TODO: Download latest and schedule update job
-    sudo rm /etc/hosts
-    sudo $STOW -d $PKG_DIR -t /etc hosts
-    ;;
-  "disable_useless")
-    sudo systemctl disable avahi-daemon
-    sudo systemctl stop avahi-daemon
-    sudo systemctl disable triggerhappy
-    sudo systemctl stop triggerhappy
+  "bash")
+    $STOW -d $PKG_DIR -t $HOME $1
     ;;
   "disable_bluetooth")
     sudo systemctl disable hciuart
@@ -64,17 +26,71 @@ case $1 in
       touch "$REBOOT_FLAG"
     fi
     ;;
-  "vim")
-    $STOW -d $PKG_DIR -t $HOME $1
-    if [ ! -d "${HOME}/.vim/bundle/Vundle.vim" ]; then
-      git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  "disable_nvaudio")
+    if [ ! -f /etc/rpi-issue ]; then
+      if [ ! -f /etc/modprobe.d/blacklist-nvaudio.conf ]; then
+        echo 'blacklist snd-hda-intel\n' | sudo tee /etc/modprobe.d/blacklist-nvaudio.conf
+        touch "$REBOOT_FLAG"
+      fi
     fi
-    vim +PluginInstall +qall
+    ;;
+  "disable_useless")
+    sudo systemctl disable avahi-daemon
+    sudo systemctl stop avahi-daemon
+    sudo systemctl disable triggerhappy
+    sudo systemctl stop triggerhappy
     ;;
   "dnsmasq")
     if [ -f /etc/rpi-issue ]; then
       sudo apt install -y $1
       sudo $STOW -d $PKG_DIR -t /etc $1
+      sudo systemctl enable $1
+      sudo systemctl restart $1
+    fi
+    ;;
+  "dropbox")
+    # TODO: dropbox for debian dev box
+    # TODO: owncloud server
+    ;;
+  "git")
+    # TODO: make vars
+    git config --global push.default simple
+    git config --global user.email "thetapi@thetanil.com"
+    git config --global user.name "thetapi"
+    ;;
+  "hosts")
+    #TODO: Download latest and schedule update job
+    if [ -f /etc/rpi-issue ]; then
+      sudo rm /etc/hosts
+      sudo $STOW -d $PKG_DIR -t /etc hosts
+    fi
+    ;;
+  "hugo")
+    # TODO: AMD for deb, ARM for Pi
+    if [ -f /etc/rpi-issue ] && [ ! -f "$(which hugo)" ]; then
+      wget -O $HOME/hugo.deb $HUGO_URL
+      sudo dpkg -i $HOME/hugo.deb
+      rm $HOME/hugo.deb
+      hugo version
+      cd $THETAPI_HOME/ui
+      hugo
+    fi
+    ;;
+  "i3")
+    if [ ! -f /etc/rpi-issue ]; then
+      sudo apt install $1
+      [ -f $HOME/.config/i3/config ] && \
+        mv $HOME/.config/i3/config $HOME/.config/i3/config.thetapibak
+      $STOW -d $PKG_DIR -t $HOME/.config/i3 $1
+    fi
+    ;;
+  "keyboard")
+    # TODO: /etc/defaults/keyboard remap caps:escape
+    ;;
+  "nginx")
+    if [ -f /etc/rpi-issue ]; then
+      sudo apt install -y $1
+      sudo $STOW -d $PKG_DIR -t /etc/nginx $1
       sudo systemctl enable $1
       sudo systemctl restart $1
     fi
@@ -98,29 +114,9 @@ case $1 in
       sudo systemctl restart $1
     fi
     ;;
-  "nginx")
-    if [ -f /etc/rpi-issue ]; then
-      sudo apt install -y $1
-      sudo $STOW -d $PKG_DIR -t /etc/nginx $1
-      sudo systemctl enable $1
-      sudo systemctl restart $1
-    fi
-    ;;
-  "disable_nvaudio")
-    if [ ! -f /etc/rpi-issue ]; then
-      if [ ! -f /etc/modprobe.d/blacklist-nvaudio.conf ]; then
-        echo 'blacklist snd-hda-intel\n' | sudo tee /etc/modprobe.d/blacklist-nvaudio.conf
-        touch "$REBOOT_FLAG"
-      fi
-    fi
-    ;;
   "pulse_audio")
     # TODO: pulse audio setup for debian dev box
     sudo apt install -y pulseaudio pavucontrol
-    ;;
-  "dropbox")
-    # TODO: dropbox for debian dev box
-    # TODO: owncloud server
     ;;
   "spotify")
     if [ ! -f /etc/rpi-issue ]; then
@@ -132,18 +128,29 @@ case $1 in
       sudo apt install spotify-client
     fi
     ;;
+  "sshkeys")
+    if [ -d $HOME/.ssh ] && \
+       [ ! -f $HOME/.ssh/id_rsa ] && \
+       [ ! -f $HOME/.ssh/id_rsa.pub ]; then
+      ssh-keygen -trsa -N "" -f $HOME/.ssh/id_rsa
+    else
+      echo "could not generate ssh keys (already exist or ~/.ssh missing)"
+    fi
+    if [ -f /etc/rpi-issue ] && [ ! -f "$HOME/.ssh/authorized_keys2" ]; then
+      echo $DEV_PUBKEY >> $HOME/.ssh/authorized_keys2
+    fi
+    ;;
   "terminator")
     if [ ! -f /etc/rpi-issue ]; then
       echo 'TODO'
     fi
     ;;
-  "i3")
-    if [ ! -f /etc/rpi-issue ]; then
-      sudo apt install $1
-      [ -f $HOME/.config/i3/config ] && \
-        mv $HOME/.config/i3/config $HOME/.config/i3/config.thetapibak
-      $STOW -d $PKG_DIR -t $HOME/.config/i3 $1
+  "vim")
+    $STOW -d $PKG_DIR -t $HOME $1
+    if [ ! -d "${HOME}/.vim/bundle/Vundle.vim" ]; then
+      git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     fi
+    vim +PluginInstall +qall
     ;;
   "debian_gui")
     # TODO: debian stuff for dev box
@@ -155,7 +162,8 @@ case $1 in
     # firefox-esr
     ;;
   *)
-    $STOW -d $PKG_DIR -t $HOME $1
+    echo "oops, missing case $1"
+    exit 1
     ;;
 esac
 

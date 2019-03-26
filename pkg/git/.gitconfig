@@ -1,3 +1,5 @@
 [user]
-    email = thetapi@thetanil.com
-    name = Theta Pi
+	email = thetapi@thetanil.com
+	name = thetapi
+[push]
+	default = simple
