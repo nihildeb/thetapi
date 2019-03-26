@@ -11,6 +11,10 @@
 #exec --no-startup-id ~/.dropbox-dist/dropboxd
 #exec --no-startup-id /usr/bin/steam
 exec --no-startup-id xrandr --output DP-0 --auto --below HDMI-0
+workspace 1 output DP-0
+exec i3-sensible-terminal
+exec firefox
+exec spotify
 
 set $mod Mod1
 

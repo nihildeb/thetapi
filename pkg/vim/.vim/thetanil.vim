@@ -5,6 +5,17 @@ set wildmode=list:full
 set listchars=trail:~,extends:>,precedes:<
 set list
 
+" Folding
+"set nofoldenable
+
+augroup vimrc
+  au BufReadPre * setlocal foldmethod=indent
+  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+augroup END
+
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
 " Show partial commands
 set showcmd
 
@@ -17,6 +28,7 @@ set notimeout ttimeout ttimeoutlen=200
 " Indentation settings for using 2 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
 set shiftwidth=2
+set tabstop=2
 set softtabstop=2
 set expandtab
 

@@ -48,8 +48,7 @@ case $1 in
     fi
     ;;
   "dropbox")
-    # TODO: dropbox for debian dev box
-    # TODO: owncloud server
+    # TODO: dropbox for debian dev box TODO: owncloud server
     echo "TP: TODO"
     ;;
   "git")
@@ -104,6 +103,13 @@ case $1 in
       sudo $STOW -d $PKG_DIR -t /etc/nginx $1
       sudo systemctl enable $1
       sudo systemctl restart $1
+    fi
+    ;;
+  "obs")
+    if [ ! -f "$(command -v obs)" ] && \
+       [ ! -f /etc/rpi-issue ] && \
+       [ ! -f /etc/issue.net ]; then
+      $APT $1
     fi
     ;;
   "polipo")
