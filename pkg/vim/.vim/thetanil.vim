@@ -6,7 +6,7 @@ set listchars=trail:~,extends:>,precedes:<
 set list
 
 " Folding
-"set nofoldenable
+set nofoldenable
 
 augroup vimrc
   au BufReadPre * setlocal foldmethod=indent

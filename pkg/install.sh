@@ -2,7 +2,7 @@
 set -eu
 
 STOW=$( which stow )
-APT="sudo apt -y -qq install $@"
+APT="sudo apt -qq -y install"
 PKG_DIR=$THETAPI_HOME/pkg
 REBOOT_FLAG=$THETAPI_HOME/.rebootreq
 DEV_PUBKEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDXFbPpSVUYrNh1w5CyOjbFvYFjOWgr6lTIf2beKKLzVD/gbWHlp2gtZ9//zgxzUJ2Ml1tZ7vwOSR4vhMqRJ8eNjl6pp2e1jsxUE4ipHBsj2S+VWIiDJ5JYZ4SzNuL4fduASUmeHB+K7Lxe5zw3Ri8+Z0C9XjLwPqri8rR9sirBuZiobINTwu0IJMFrZmCloZ8r1gg2IgulRfT1C0f+P9coYjDkuRa4W1LdRmAsmKOTNG14YEWCQjRL8q4qtWF1hQ1KMBktrpEYh2uhZiKcPAFDlJXxrIEYtmQ8rGqL17a4Z50NhryW/plKLS/mDUHsW5XNPgvr8eILWid2AkT80pfB thetapi@thetanil.com'
@@ -99,18 +99,14 @@ case $1 in
     ;;
   "nginx")
     if [ -f /etc/rpi-issue ]; then
-      $APT -y $1
+      $APT $1
       sudo $STOW -d $PKG_DIR -t /etc/nginx $1
       sudo systemctl enable $1
       sudo systemctl restart $1
     fi
     ;;
   "obs")
-    if [ ! -f "$(command -v obs)" ] && \
-       [ ! -f /etc/rpi-issue ] && \
-       [ ! -f /etc/issue.net ]; then
-      $APT $1
-    fi
+    $APT ffmpeg obs-studio
     ;;
   "polipo")
     if [ -f /etc/rpi-issue ]; then
