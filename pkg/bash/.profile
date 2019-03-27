@@ -21,6 +21,16 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && -f /etc/rpi-issue ]]; then
+  exec startx
+  #exec tail -F \
+    #/var/log/kern.log \
+    #/var/log/messages \
+    #/var/log/syslog \
+    #/var/log/nginx/access.log \
+    #/var/log/nginx/error.log
+fi
+
+if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && ! -f /etc/rpi-issue ]]; then
   exec startx
 fi
