@@ -44,16 +44,7 @@ alias monitor_x_off='sleep 1; xset dpms force off'
 alias monitor_pi_off='vcgencmd display_power 0'
 alias monitor_pi_on='vcgencmd display_power 1'
 alias dump='sudo tcpdump -i eth0 -s 1500 port not 22 and port not 53 and port not 1900 and port not https and port not http and port not socks'
-alias hug='hugo server --bind 0.0.0.0 --cleanDestinationDir -p 8080 -wD'
-alias keyls='xmodmap -pke'
-alias keyshow='xev'
-
-alias bios='sudo systemctl reboot --firmware-setup'
-alias monitor_sleep='sleep 1; xset dpms force off'
-alias psa='ps ax'
-alias psag='ps ax|grep -i $@'
-alias sshpi='ssh root@192.168.178.48'
-alias pi='ssh pi@192.168.3.14'
+alias chrome='chromium --no-proxy-server'
 
 # hugo
 alias hug='hugo server --bind 0.0.0.0 --cleanDestinationDir -p 8080 -wD'
