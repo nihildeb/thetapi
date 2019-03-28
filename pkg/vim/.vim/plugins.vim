@@ -44,8 +44,12 @@ Plugin 'scrooloose/nerdcommenter'
 
 "Plugin 'valloric/youcompleteme'
 "disable shitty preview window since it never closes
+"this thing is the best completion but a PitA to build
 "set completeopt-=preview
 "let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+" Second best option for completions, and is native vim
+Plugin 'ervandew/supertab'
 
 " Airline
 Plugin 'vim-airline/vim-airline'
