@@ -132,6 +132,11 @@ case $1 in
       $APT pulseaudio pavucontrol
     fi
     ;;
+  "router")
+    if [ -f /etc/rpi-issue ]; then
+      sudo $STOW -d $PKG_DIR -t /etc $1
+    fi
+    ;;
   "spotify")
     if [ ! -f "$(command -v spotify)" ] && [ ! -f /etc/rpi-issue ]; then
       repo='deb http://repository.spotify.com stable non-free'
