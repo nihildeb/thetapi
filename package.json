@@ -1,0 +1,28 @@
+{
+  "name": "thetapi",
+  "version": "1.0.0",
+  "description": "Universal Little Box, Abundance of Features",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nihildeb/thetapi.git"
+  },
+  "keywords": [
+    "raspberry",
+    "pi",
+    "raspberrypi",
+    "freedombox",
+    "theta",
+    "thetanil",
+    "thetapi"
+  ],
+  "author": "Nicholas Hildebrant",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/nihildeb/thetapi/issues"
+  },
+  "homepage": "https://github.com/nihildeb/thetapi#readme"
+}
