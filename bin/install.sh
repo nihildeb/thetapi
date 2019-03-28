@@ -112,7 +112,7 @@ case $1 in
     DIST_URL=https://nodejs.org/dist/
     FT=tar.xz
     if [ -f /etc/rpi-issue ]; then
-      DISTRO=linux-arm7l
+      DISTRO=linux-armv7l
     else
       DISTRO=linux-x64
     fi
