@@ -105,6 +105,26 @@ case $1 in
       sudo systemctl restart $1
     fi
     ;;
+  "node")
+    DEST=/usr/local/lib
+    VERSION=v10.15.3
+    #DL_URL=https://nodejs.org/dist/v10.15.3/node-v10.15.3-linux-x64.tar.xz
+    DIST_URL=https://nodejs.org/dist/
+    FT=tar.xz
+    if [ -f /etc/rpi-issue ]; then
+      DISTRO=linux-arm7l
+    else
+      DISTRO=linux-x64
+    fi
+    URL="${DIST_URL}${VERSION}/node-${VERSION}-${DISTRO}.${FT}"
+    mkdir -p $THETAPI_HOME/tmp
+    TARBALL="${THETAPI_HOME}/tmp/node.${FT}"
+    wget -O "${TARBALL}" "${URL}"
+    sudo tar xJvf "${TARBALL}" -C /usr/local/lib/
+    sudo rm -rf $DEST/nodejs
+    sudo ln -s "/usr/local/lib/node-${VERSION}-${DISTRO}" /usr/local/lib/node
+    rm -rf $THETAPI_HOME/tmp
+    ;;
   "obs")
     $APT ffmpeg obs-studio
     ;;

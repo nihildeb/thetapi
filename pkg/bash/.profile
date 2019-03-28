@@ -21,6 +21,10 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+if [ -d /usr/local/lib/node/bin ] ; then
+    PATH=/usr/local/lib/node/bin:$PATH
+fi
+
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && -f /etc/rpi-issue ]]; then
   xset s off
   xset -dpms
@@ -28,5 +32,7 @@ if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && -f /etc/rpi-issue ]]; then
 fi
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && ! -f /etc/rpi-issue ]]; then
+  xset -dpms
+  xset s off
   exec startx
 fi
