@@ -27,6 +27,17 @@ fi
 
 if [[ $XDG_VTNR -eq 1 && -f /etc/rpi-issue ]]; then
   echo 'RPI Auto Exec'
+  if ! [ -n "$TMUX" ]; then
+    tmux new-session -s console -n 'Console' -d
+    tmux split-window -h
+    tmux send-keys -t console:Console.1 'tail -n1 -f /var/log/messages \
+      /var/log/syslog \
+      /var/log/kern.log &
+      ' C-j
+    tmux send-keys -t 0 'nmon' C-j
+    tmux send-keys -t 0 'cnmdt'
+    tmux attach -t console
+  fi
 fi
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && ! -f /etc/rpi-issue ]]; then
