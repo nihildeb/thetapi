@@ -25,10 +25,8 @@ if [ -d /usr/local/lib/node/bin ] ; then
     PATH=/usr/local/lib/node/bin:$PATH
 fi
 
-if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && -f /etc/rpi-issue ]]; then
-  xset s off
-  xset -dpms
-  exec startx
+if [[ $XDG_VTNR -eq 1 && -f /etc/rpi-issue ]]; then
+  echo 'RPI Auto Exec'
 fi
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && ! -f /etc/rpi-issue ]]; then

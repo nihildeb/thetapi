@@ -68,7 +68,7 @@ alias psag='ps ax|grep -i $@'
 
 # Shortcuts to edit startup files
 alias vbr="vim ~/.bashrc"
-alias vbp="vim ~/.bash_profile"
+alias vbp="vim ~/.profile"
 alias vba="vim ~/.bash_aliases"
 alias vbv="vim ~/.vimrc"
 alias vimrc='vim ~/.vimrc'
