@@ -1,3 +1,11 @@
-#!/bin/sh
-${THETAPI_HOME}/bin/install.sh "$@"
+#!/usr/bin/env node
+const chalk = require('chalk')
+//##!/bin/s
+//#${THETAPI_HOME}/bin/install.sh "$@"
+
+
+const version = '1.0.0'
+
+const log = chalk.green(`ThetaPi cli v${version}`)
+console.log(process.argv)
 

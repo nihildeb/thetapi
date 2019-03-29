@@ -32,7 +32,5 @@ if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && -f /etc/rpi-issue ]]; then
 fi
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 && ! -f /etc/rpi-issue ]]; then
-  xset -dpms
-  xset s off
   exec startx
 fi

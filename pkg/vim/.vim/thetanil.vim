@@ -32,6 +32,17 @@ set tabstop=2
 set softtabstop=2
 set expandtab
 
+" builtin markdown by tpope supports fenced code blocks
+" https://github.com/tpope/vim-markdown
+let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh']
+
+" vim spell check
+" https://thoughtbot.com/blog/vim-spell-checking
+autocmd BufRead,BufNewFile *.md setlocal spell
+set complete+=kspell
+" don't litter, I don't use network drives
+let g:netrw_dirhistmax = 0
+
 "Apply highlighting automatically whenever text exceeds 80 columns
 ":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 hi colorcolumn ctermbg=NONE ctermfg=red

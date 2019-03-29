@@ -14,7 +14,10 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'pangloss/vim-javascript'
 
 " https://vimawesome.com/plugin/markdown-syntax
-Plugin 'plasticboy/vim-markdown'
+"Plugin 'plasticboy/vim-markdown'
+
+" tpope does everything better
+"Plugin 'amiorin/vim-fenced-code-blocks'
 
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
