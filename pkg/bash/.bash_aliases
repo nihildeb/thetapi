@@ -16,12 +16,14 @@ countdown()
 )
 
 # Theta Pi
-alias cdt="cd ${THETAPI_HOME}"
-alias update="${THETAPI_HOME}/bin/update"
+alias thetapi="${HOME}/code/thetapi/bin/thetapi.sh"
+alias tpi='thetapi install'
+alias tpu='thetapi update'
+alias cdt="cd ${HOME}/code/thetapi"
 alias tp_git_ssh='git remote set-url --push origin git@github.com:nihildeb/thetapi'
 alias tp_git_http='git remote set-url --push origin https://github.com/nihildeb/thetapi'
 alias reshell=". ${HOME}/.profile"
-alias reboot="rm -f ${THETAPI_HOME}/.rebootreq && sudo reboot"
+alias reboot="thetapi reboot"
 alias pi='ssh pi@192.168.3.14'
 alias pi2='ssh pi@192.168.3.15'
 alias alpi='ssh root@192.168.178.48'
@@ -56,11 +58,21 @@ alias keyls='xmodmap -pke'
 alias keyshow='xev'
 
 # List directory contents
-alias sl=ls
-alias la='ls -AF'       # Compact view, show hidden
-alias ll='ls -al'
-alias l='ls -a'
-alias l1='ls -1'
+if [ -x /usr/bin/dircolors ]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias sl='ls --color=auto'
+  alias la='ls -AF --color=auto'       # Compact view, show hidden
+  alias ll='ls -al --color=auto'
+  alias l='ls -a --color=auto'
+  alias l1='ls -1 --color=auto'
+  #alias dir='dir --color=auto'
+  #alias vdir='vdir --color=auto'
+
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
 
 # list processes
 alias psa='ps ax'

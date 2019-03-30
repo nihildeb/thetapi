@@ -51,7 +51,7 @@ bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # Firefox
-bindsym $mod+Shift+f exec firefox
+bindsym $mod+Shift+f exec /opt/firefox/firefox
 
 # Spotify
 bindsym $mod+Shift+s exec spotify
