@@ -1,11 +1,8 @@
-#!/usr/bin/env node
-const chalk = require('chalk')
-//##!/bin/s
-//#${THETAPI_HOME}/bin/install.sh "$@"
+#!/bin/sh
+set -eu
 
+[ -d "${THETAPI_HOME}" ] || { echo >&2 "${THETAPI_HOME} does not exist"; exit 1; }
+[ -x "$(command -v node)" ] || { echo >&2 "NodeJS not found"; exit 1; }
 
-const version = '1.0.0'
-
-const log = chalk.green(`ThetaPi cli v${version}`)
-console.log(process.argv)
+(cd "${THETAPI_HOME}/src" && node ./index.js "$@")
 
