@@ -19,6 +19,4 @@ const logger = createLogger({
   ]
 })
 
-logger.info('log init')
-
 exports = module.exports = logger
