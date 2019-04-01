@@ -8,6 +8,10 @@ set list
 " Folding
 set nofoldenable
 
+" autocomplete css
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
 augroup vimrc
   au BufReadPre * setlocal foldmethod=indent
   au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif

@@ -17,9 +17,12 @@ countdown()
 
 # Theta Pi
 alias thetapi="${HOME}/code/thetapi/bin/thetapi.sh"
+alias tp='thetapi'
 alias tpi='thetapi install'
 alias tpu='thetapi update'
+alias cdc="cd ${HOME}/code"
 alias cdt="cd ${HOME}/code/thetapi"
+alias cds="cd ${HOME}/code/sites"
 alias tp_git_ssh='git remote set-url --push origin git@github.com:nihildeb/thetapi'
 alias tp_git_http='git remote set-url --push origin https://github.com/nihildeb/thetapi'
 alias reshell=". ${HOME}/.profile"
@@ -37,7 +40,7 @@ alias iptf='sudo iptables -F'
 alias ts='sudo iptables -n -L -v --line-numbers'
 
 # deb / rasp system
-alias flush='dscacheutil -flushcache'
+alias flush='sudo systemd-resolve --flush-caches'
 alias dhcp_renew='sudo dhclient -r'
 alias cls='clear'
 alias h='history'

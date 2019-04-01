@@ -11,9 +11,11 @@
 #exec --no-startup-id ~/.dropbox-dist/dropboxd
 #exec --no-startup-id /usr/bin/steam
 exec --no-startup-id xrandr --output DP-0 --auto --below HDMI-0
-exec --no-startup-id xset dpms 600
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
 workspace 1 output DP-0
-exec i3-sensible-terminal
+#exec i3-sensible-terminal
+exec terminator
 exec firefox
 exec spotify
 
