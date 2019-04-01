@@ -13,16 +13,14 @@ Plugin 'altercation/vim-colors-solarized'
 " js indenting. also does syntax, but this config uses jshint from syntastic
 Plugin 'pangloss/vim-javascript'
 
-" https://vimawesome.com/plugin/markdown-syntax
-"Plugin 'plasticboy/vim-markdown'
-
-" tpope does everything better
-"Plugin 'amiorin/vim-fenced-code-blocks'
+" Emmet
+" <c-y>,
+Plugin 'mattn/emmet-vim'
 
 " CtrlP
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|bundle'
+let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|bundle\|public\|resources'
 let g:ctrlp_working_path_mode = ''
 
 Plugin 'w0rp/ale'
