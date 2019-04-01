@@ -52,7 +52,7 @@ alias dump='sudo tcpdump -i eth0 -s 1500 port not 22 and port not 53 and port no
 alias chrome='chromium --no-proxy-server'
 
 # hugo
-alias hug='cdt && hugo server --bind 0.0.0.0 --cleanDestinationDir -p 8080 -wD'
+alias hug='(cd ${HOME}/code/sites && hugo server --bind 0.0.0.0 --cleanDestinationDir -p 8080 -wD)'
 alias hugod='sudo hugo server -p 80 -wD'
 alias tre='tree ~/site/content; tree ~/site/layouts'
 
