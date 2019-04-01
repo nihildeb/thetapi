@@ -9,6 +9,9 @@ export THETAPI_HOME=$THETAPI_HOME
 [ -x "$(command -v node)" ] || \
   { echo >&2 "NodeJS not found"; exit 1; }
 
+[ -d "${THETAPI_HOME}/node_modules" ] || \
+  (cd "${THETAPI_HOME}" && npm i)
+
 [ -f /etc/os-release ] || \
   { echo >&2 "/etc/os-release not found"; exit 1; }
 . /etc/os-release
