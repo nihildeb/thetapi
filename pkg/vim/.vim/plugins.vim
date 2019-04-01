@@ -23,6 +23,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|bundle'
+let g:ctrlp_working_path_mode = ''
 
 Plugin 'w0rp/ale'
 "let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
