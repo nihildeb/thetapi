@@ -1,60 +1,46 @@
-const pjson = require('../package.json')
-const logger = require('./log.js')
-const argv = require('minimist')(process.argv.slice(2))
+const config = require('./config')
+const logger = config.logger
 
-// log levels
-if (argv.s) logger.level = 'error'
-// warn
-// info
-if (argv.v) logger.level = 'verbose'
-if (argv.d) logger.level = 'debug'
-// silly
-
-logger.log('info', 'ThetaPi v%s', pjson.version)
 logger.log('debug', 'argv: %j', argv)
 logger.log('debug', 'OS: %j', argv.s)
 
-const help=`ThetaPi v${pjson.version}
-Usage: thetapi <command> [args]
-  -d  debug
-  -s  silent
-  -v  verbose
-
-Examples:
-thetapi list
-thetapi install vim
-thetapi uninstall privoxy
-`
-
-if (!process.env.THETAPI_HOME) {
-  logger.log('error', `THETAPI_HOME=%j`, process.env.THETAPI_HOME)
-  throw new Error('THETAPI_HOME INVALID')
+const install = () => {
+  logger.log('debug', 'install: %j', args)
 }
-logger.log('debug', 'THETAPI_HOME=%j', process.env.THETAPI_HOME)
+
+const uninstall = (args) => {
+  logger.log('debug', 'uninstall: %j', args)
+}
 
 if (argv._[0]) {
   switch (argv._[0]) {
+    case 'add':
+    case 'enable':
     case 'install':
-      logger.info('install')
+      install(argv._.slice(1))
       break
+    case 'ls':
     case 'list':
-      logger.info('list')
+      list()
       break
+    case 'remove':
+    case 'del':
+    case 'delete':
     case 'uninstall':
-      logger.info('uninstall')
+      uninstall(argv._.slice(1))
       break
     case 'update':
       logger.info('update')
       break
     default:
       logger.log('warn', 'No task specified')
-      console.log(help)
+      console.log(config.help)
       break
   }
 } else {
   logger.log('warn', 'No task specified')
-  console.log(help)
+  console.log(config.help)
 }
 
-logger.info('jobs done')
+logger.log('debug', 'jobs done')
 

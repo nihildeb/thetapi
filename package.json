@@ -4,7 +4,7 @@
   "description": "Universal Little Box, Abundance of Features",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "THETAPI_HOME=`pwd` mocha --no-color -w"
   },
   "repository": {
     "type": "git",
@@ -27,10 +27,10 @@
   "homepage": "https://github.com/nihildeb/thetapi#readme",
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.0.2"
+    "mocha": "^6.0.2",
+    "rimraf": "^2.6.3"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
     "winston": "^3.2.1"
   }
 }
