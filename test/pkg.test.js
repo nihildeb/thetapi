@@ -7,7 +7,6 @@ describe('pkg', () => {
     config.testpkgCreate()
     config.load()
   })
-
   after(() => {
     config.testpkgDelete()
   })
@@ -30,12 +29,6 @@ describe('pkg', () => {
     assert.match(testpkg.pkgfile, /json$/)
     assert.isOk(testpkg.pkgjson)
   })
-
-  it('should update with no enabled packages')
-
-  //it('should install one package', () => {
-
-  //})
 })
 
 

@@ -10,8 +10,9 @@ const { createLogger, format, transports } = require('winston')
 //  silly: 5
 //}
 
+const level = (global.it) ? 'error' : 'info'
 const logger = createLogger({
-  //level: 'debug',
+  level,
   format: format.combine(format.splat(), format.simple()),
   transports: [
     new transports.Console(),

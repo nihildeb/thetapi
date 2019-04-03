@@ -19,7 +19,6 @@ describe('config', () => {
     assert.isString(config.paths.TPHOME)
     assert.isString(config.paths.PKGJSON)
     assert.isString(config.version)
-    assert.isString(config.help)
   })
   it('should have a home', () => {
     assert.isString(config.paths.TPHOME)
@@ -31,14 +30,11 @@ describe('config', () => {
     assert.match(config.version, /^\d+\.\d+\.\d+/)
   })
   it('should have help', () => {
-    assert.isString(config.help)
-    assert.match(config.help, /^ThetaPi/)
-    assert.match(config.help, /verbose/)
+    assert.isFunction(config.help)
   })
   it('should have a logger', () => {
     assert.isOk(config.logger)
     assert.isFunction(config.logger.log)
-    assert.match(config.logger.level, /info/)
   })
   it('should have a system package path', () => {
     assert.isOk(config.paths.pkg.system)

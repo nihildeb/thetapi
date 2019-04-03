@@ -1,8 +1,6 @@
 const fs = require('fs')
 const pjson = require('../package.json')
 const logger = require('./log.js')
-const argv = require('minimist')(process.argv.slice(2))
-
 
 const tpHome = () => {
   if (!process.env.THETAPI_HOME) {
@@ -13,7 +11,6 @@ const tpHome = () => {
   return process.env.THETAPI_HOME
 }
 
-// CONSTANTS req for any functionality
 const TPHOME = tpHome()
 const PKGJSON = 'pkg.json'
 
@@ -39,20 +36,28 @@ const packagePath = (system) => {
   return pkgPath
 }
 
-const tpHelp = (version) => { return `ThetaPi v${version}
+const help = (helpTest) => {
+  if (global.it) return
+  console.log(`ThetaPi v${tpVersion()}
 Usage: thetapi <command> [args]
+flags:
   -d  debug
   -q  quiet / silent
   -v  verbose
-
-Examples:
-thetapi list
-thetapi install vim
-thetapi uninstall privoxy
-`
+commands:
+  list - list all available packages
+  enable - set a package for installation and update
+  disable - set a package for removal and update
+  update - install and uninstall packages
+examples:
+  thetapi list
+  thetapi enable vim
+  thetapi disable privoxy
+  thetapi update
+`)
 }
 
-const setLogLevel = () => {
+const setLogLevel = (argv) => {
   // log levels
   if (argv.q) logger.level = 'error'
   // warn
@@ -63,7 +68,8 @@ const setLogLevel = () => {
 }
 
 const writeJSON = (filename, json) => {
-  fs.writeFile(filename, json, (err) => {
+  logger.log('debug', 'writing pkg file: %s', filename)
+  fs.writeFileSync(filename, json, (err) => {
     if (err) throw new Error(err)
     config.logger.log('debug', 'json=%j', json)
     config.logger.log('debug', 'written to:', filename)
@@ -96,37 +102,22 @@ const parsePackage = (baseDir, pkgId) => {
 const tpPackages = (paths) => {
   const packages = {}
 
-  try {
-    fs.readdirSync(paths.common).forEach((pkgId) => {
-      logger.log('warn', 'pkgId: %s', pkgId)
-      packages[pkgId] = parsePackage(paths.common, pkgId)
-    })
-  } catch (e) {
-    logger.log('error', 'missing common packages')
-    throw new Error('missing common packages')
-  }
+  fs.readdirSync(paths.common).forEach((pkgId) => {
+    packages[pkgId] = parsePackage(paths.common, pkgId)
+  })
 
-  if ( paths && paths.system && fs.existsSync(paths.system) ) {
-    fs.readdirSync(paths.system).forEach((pkgId) => {
-      packages[pkgId] = parsePackage(paths.system, pkgId)
-    })
-  } else {
-    logger.log('error', 'missing system packages')
-    throw new Error('missing system packages')
-  }
+  fs.readdirSync(paths.system).forEach((pkgId) => {
+    packages[pkgId] = parsePackage(paths.system, pkgId)
+  })
 
-  logger.log('verbose', 'packages:' + JSON.stringify(packages, null, 2))
+  logger.log('verbose', 'packages: ' + JSON.stringify(packages, null, 2))
   return packages
 }
-
 
 const TESTPKGDIR = `${TPHOME}/pkg/common/testpkg`
 const TESTPKGFILE = `${TESTPKGDIR}/${PKGJSON}`
 
 const testpkgCreate = () => {
-  if (! argv.s) {
-    argv.s = 'debian'
-  }
   if ( fs.existsSync(TESTPKGDIR) ) {
     require('rimraf').sync(TESTPKGDIR)
   }
@@ -148,18 +139,23 @@ const config = {
     pkg: {}
   },
   version: tpVersion(),
-  help: tpHelp(tpVersion()),
+  help,
   logger,
-  argv,
   writeJSON,
   testpkgCreate,
   testpkgDelete
 }
 
-
-const load = () => {
-  logger.log('warn', 'load')
-  setLogLevel()
+const load = ( argv = { _ : ['default'], s: 'debian'} ) => {
+  if (!argv || !argv._ || !argv._.length || argv._.length < 1) {
+    argv._ = []
+    argv._.push('default')
+  }
+  if (!argv.s) argv.s = 'debian'
+  logger.log('verbose', 'config refreshed with load(%j)', argv)
+  config.argv = argv
+  config.action = argv._[0]
+  setLogLevel(config.argv)
   config.paths.pkg.system = packagePath(config.argv.s)
   config.paths.pkg.common = packagePath('common')
   config.packages = tpPackages(config.paths.pkg)
