@@ -1,0 +1,10 @@
+{
+  "disabled": false,
+  "order": 100,
+  "useSudo": true,
+  "timeout": 10000,
+  "install": {
+    "before": [ "apt-get -y update" ],
+    "after": [ "apt-get -y upgrade" ]
+  }
+}

@@ -80,12 +80,8 @@ const getJsonOrDefault = (pkgfile) => {
   try {
     return JSON.parse(fs.readFileSync(pkgfile))
   } catch (e) {
-    logger.log('warn', 'using default package in place of  %s', pkgfile)
-    logger.log('warn', 'error obj: %j', e)
-    const defaultpkg = {
-      defaultpkg: true
-    }
-    return JSON.parse(JSON.stringify(defaultpkg))
+    logger.log('verbose', 'using default package in place of  %s', pkgfile)
+    return JSON.parse(JSON.stringify({defaultpkg: true}))
   }
 }
 

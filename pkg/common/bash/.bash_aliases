@@ -40,14 +40,17 @@ alias iptf='sudo iptables -F'
 alias ts='sudo iptables -n -L -v --line-numbers'
 
 # deb / rasp system
+alias search='fgrep --color=auto -rni'
 alias flush='sudo systemd-resolve --flush-caches'
 alias dhcp_renew='sudo dhclient -r'
 alias cls='clear'
 alias h='history'
 alias bios='sudo systemctl reboot --firmware-setup'
-alias monitor_x_off='sleep 1; xset dpms force off'
-alias monitor_pi_off='vcgencmd display_power 0'
-alias monitor_pi_on='vcgencmd display_power 1'
+
+alias monitorxoff='sleep 1; xset dpms force off'
+alias monitorxon='sleep 1; xset s off; xset -dpms'
+alias monitorpioff='vcgencmd display_power 0'
+alias monitorpion='vcgencmd display_power 1'
 alias dump='sudo tcpdump -i eth0 -s 1500 port not 22 and port not 53 and port not 1900 and port not https and port not http and port not socks'
 alias chrome='chromium --no-proxy-server'
 

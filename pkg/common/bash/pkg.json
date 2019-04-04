@@ -1,8 +1,10 @@
 {
   "disabled": false,
-  "prestow": [],
-  "stow": {
-    "target": "~"
-  },
-  "poststow": []
+  "install": {
+    "before": [
+      "rm ~/.bash_aliases ~/.bash_env ~/.bashrc ~/.profile ~/pkg.json"
+    ],
+    "stow": { "target": "~" },
+    "after": []
+  }
 }
