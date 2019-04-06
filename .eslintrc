@@ -1,0 +1,18 @@
+{
+  "env": {
+    "node": 1,
+    "browser": 1
+  },
+  "globals": {
+    "describe": true,
+    "it": true,
+    "before": true,
+    "after": true
+  },
+  "rules": {
+    "eqeqeq": 1,
+    "comma-dangle": [ "error", "only-multiline"]
+  },
+  "extends": "standard",
+  "plugins": [ ]
+}

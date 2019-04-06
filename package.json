@@ -2,9 +2,9 @@
   "name": "thetapi",
   "version": "1.0.0",
   "description": "Universal Little Box, Abundance of Features",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node index.js",
     "test": "THETAPI_HOME=`pwd` mocha --no-color -w"
   },
   "repository": {
@@ -31,7 +31,9 @@
     "mocha": "^6.0.2"
   },
   "dependencies": {
-    "winston": "^3.2.1",
-    "rimraf": "^2.6.3"
+    "lodash": "^4.17.11",
+    "minimist": "^1.2.0",
+    "rimraf": "^2.6.3",
+    "winston": "^3.2.1"
   }
 }

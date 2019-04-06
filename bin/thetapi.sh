@@ -12,5 +12,5 @@ export THETAPI_HOME=$THETAPI_HOME
 [ -d "${THETAPI_HOME}/node_modules" ] || \
   (cd "${THETAPI_HOME}" && npm i)
 
-(cd "${THETAPI_HOME}" && node ./src/index.js "$@")
+(cd "${THETAPI_HOME}" && node index.js "$@")
 
