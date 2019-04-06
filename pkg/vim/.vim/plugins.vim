@@ -23,14 +23,6 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|bundle\|public\|resources'
 let g:ctrlp_working_path_mode = ''
 
-Plugin 'w0rp/ale'
-"let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
-let g:ale_linters = {'javascript': ['eslint']}
-let g:ale_fixers = {'javascript': ['eslint']}
-let g:ale_fix_on_save = 1
-"let g:ale_set_loclist = 0
-"let g:ale_set_quickfix = 1
-
 " NERDTree
 Plugin 'scrooloose/nerdtree'
 let g:NERDTreeWinPos = "right"
@@ -58,6 +50,16 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 let g:airline_theme = 'solarized'
 let g:airline_solarized_bg='dark'
+
+Plugin 'w0rp/ale'
+"let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_linters = { 'javascript': ['eslint'] }
+let g:ale_fixers = { 'javascript': ['eslint'] }
+let g:ale_fix_on_save = 1
+"let g:ale_sign_column_always = 1
+"let g:ale_set_loclist = 0
+"let g:ale_set_quickfix = 1
+"let g:airline#extensions#ale#enabled = 1
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
