@@ -65,6 +65,7 @@ typings/
 
 # Vundle Bundles
 pkg/vim/.vim/bundle/
+pkg/common/vim/.vim/bundle
 
 # ThetaPi
 .rebootreq
