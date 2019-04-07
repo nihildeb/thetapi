@@ -1,4 +1,3 @@
-const fs = require('fs')
 const assert = require('chai').assert
 const config = require('../src/config')
 
@@ -17,28 +16,28 @@ describe('config', () => {
     assert.isString(config.os.platform)
     assert.isString(config.os.arch)
     assert.isString(config.os.target)
-  })
-
-  it('knows its user', () => {
-    assert.isString(config.user.username)
-    assert.isString(config.user.homedir)
+    assert.isString(config.os.username)
+    assert.isString(config.os.homedir)
   })
 
   it('knows its paths and they exist', () => {
-    assert.isOk(fs.existsSync(config.paths.root))
-    assert.isOk(fs.existsSync(config.paths.pkg.root))
-    assert.isOk(fs.existsSync(config.paths.pkg.common))
-    assert.isOk(fs.existsSync(config.paths.pkg.target))
+    assert.isString(config.paths.thetapi)
+    assert.isString(config.paths.pkgroot)
+    assert.isString(config.paths.common)
+    assert.isString(config.paths.system)
+    assert.isString(config.paths.userhome)
   })
 
   it('knows its package props', () => {
-    assert.isOk(config.pjson)
-    assert.isOk(config.pjson.version)
     assert.isOk(config.version)
+    assert.isString(config.version)
   })
 
   it('has a list of packages', () => {
+    console.dir(config.pkg)
     assert.isOk(config.pkg)
+    assert.isObject(config.pkg)
+    assert.isAtLeast(Object.keys(config.pkg).length, 2)
   })
 })
 //  before(() => {
