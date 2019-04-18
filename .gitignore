@@ -70,3 +70,4 @@ pkg/common/vim/.vim/bundle
 # ThetaPi
 .rebootreq
 
+package-lock.json

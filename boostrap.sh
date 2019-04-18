@@ -1,12 +1,12 @@
 #!/bin/sh
-set -e
-set -u
+set -eu
 
+TPHOME="${HOME}/.thetapi"
 LANG=en_US.UTF-8
 LANGUAGE=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 EDITOR=vim
-PATH=$PATH:$HOME/.thetapi/bin
+PATH=$PATH:$TPHOME/bin
 
 # TODO: if raspbian
 if [ ! -f /etc/debian_version ]; then
@@ -24,7 +24,8 @@ fi
 
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install -y vim git stow
+sudo apt install -y vim git
 
-git clone https://github.com/nihildeb/thetapi.git ~/.thetapi
-~/.thetapi/bin/update
+git clone https://github.com/nihildeb/thetapi.git $TPHOME
+cd $TPHOME
+npm start

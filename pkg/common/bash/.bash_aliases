@@ -27,6 +27,7 @@ alias tp_git_ssh='git remote set-url --push origin git@github.com:nihildeb/theta
 alias tp_git_http='git remote set-url --push origin https://github.com/nihildeb/thetapi'
 alias reshell=". ${HOME}/.profile"
 alias reboot="sudo reboot"
+alias restart="sudo reboot"
 alias pi='ssh pi@192.168.3.14'
 alias pi2='ssh pi@192.168.3.15'
 alias alpi='ssh root@192.168.178.48'
@@ -46,6 +47,7 @@ alias dhcp_renew='sudo dhclient -r'
 alias cls='clear'
 alias h='history'
 alias bios='sudo systemctl reboot --firmware-setup'
+alias renoise='sudo renoise'
 
 alias monitorxoff='sleep 1; xset dpms force off'
 alias monitorxon='sleep 1; xset s off; xset -dpms'

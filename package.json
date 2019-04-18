@@ -4,7 +4,7 @@
   "description": "Universal Little Box, Abundance of Features",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "THETAPI_HOME=`pwd` mocha --no-color -w"
   },
   "repository": {
@@ -28,12 +28,20 @@
   "homepage": "https://github.com/nihildeb/thetapi#readme",
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.0.2"
+    "connect-livereload": "^0.6.1",
+    "mocha": "^6.1.3",
+    "nodemon": "^1.18.11"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "cookie-session": "^1.3.3",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "livereload": "^0.7.0",
     "lodash": "^4.17.11",
-    "minimist": "^1.2.0",
-    "rimraf": "^2.6.3",
-    "winston": "^3.2.1"
+    "serve-favicon": "^2.5.0",
+    "serve-static": "^1.13.2",
+    "sqlite3": "^4.0.6"
   }
 }

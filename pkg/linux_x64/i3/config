@@ -15,6 +15,7 @@ workspace 1 output DP-0
 exec terminator
 exec firefox
 exec spotify
+#focus_follows_mouse no
 
 set $mod Mod1
 
@@ -50,7 +51,7 @@ bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # Firefox
-bindsym $mod+Shift+f exec /opt/firefox/firefox
+bindsym $mod+Shift+f exec firefox
 
 # Spotify
 bindsym $mod+Shift+s exec spotify

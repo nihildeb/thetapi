@@ -1,50 +1,64 @@
+const path = require('path')
+const { execSync } = require('child_process')
 const validate = require('./validate')
+const logger = require('./log')
+
+const shShell = '/bin/sh'
+const dryShell = path.resolve(path.join(__dirname, '../bin/dryrun.sh'))
+const cmdOpts = {
+  stdio: 'inherit',
+  timeout: 200, // ms
+  shell: dryShell, // dryrun with fake shell is the default
+}
+
+const runAction = (cmd, opts) => {
+  const actionOpts = Object.assign({}, cmdOpts, opts)
+  execSync(cmd, actionOpts)
+}
 
 const actions = {}
-actions.sh = (cmd, opts) => { console.log(cmd) }
-
-// https://stackoverflow.com/questions/14782232/how-to-avoid-cannot-read-property-of-undefined-errors
-// const safeGet = (fn, val) => {
-//  try {
-//    return fn()
-//  } catch (e) {
-//    return val
-//  }
-// }
+actions.sh = (cmd, opts) => { runAction(cmd, opts) }
+actions.log = (level, message, args) => logger.log(level, message, args)
+actions.aptupdate = () => { console.log('aptupdate') }
+actions.aptinstall = (aptPkgList) => { console.log('aptinstall') }
+actions.stow = (pkg, withSudo = false) => {}
 
 const exec = (config) => {
-  const dryrun = config.dryrun
+  // console.log(config.dryrun)
+  if (!config.dryrun) cmdOpts.shell = shShell
   Object.keys(config.pkg).forEach((pkgid) => {
-    const fn = config.pkg[pkgid].fn
-    config.logger.verbose('call package function: %s', pkgid)
-    if (!dryrun) fn(actions, config, config.logger)
+    config.pkg[pkgid].pfn(actions, config)
   })
 }
 
 const req = (config) => {
+  // TODO: mutation is bad
   Object.keys(config.pkg).forEach((pkgid) => {
-    const pfile = config.pkg[pkgid].paths.pkgfile
-    config.logger.log('verbose', 'requiring: %s', pfile)
+    const pdir = config.pkg[pkgid].stowdir + '/' + pkgid
+    const pfile = pdir + '/' + config.paths.PKGFILE
+    logger.verbose('requiring: %s', pfile)
     try {
       const fn = require(pfile)
       if (typeof (fn) === 'function') {
-        config.pkg[pkgid].fn = fn
+        config.pkg[pkgid].pfn = fn
       } else {
-        config.logger.warn('replacing bad package file: %s', pfile)
-        config.pkg[pkgid].fn = () => {}
+        logger.warn('replacing bad package file: %s', pfile)
+        config.pkg[pkgid].pfn = () => { throw pfile }
       }
     } catch (e) {
-      config.logger.log('error', 'requiring %s: %j', pkgid, e)
+      logger.error('requiring %s: %j', pkgid, e)
       throw e
     }
   })
+  return config
 }
 
 const run = (config) => {
   if (!config) throw new Error('no config')
-  if (!validate(config)) throw new Error('errors in configuration')
-  req(config)
-  exec(config)
+  const validated = validate(config)
+  if (!validated.isValid) throw new Error('errors in configuration')
+  const executable = req(validated)
+  exec(executable)
 }
 
 module.exports.run = run

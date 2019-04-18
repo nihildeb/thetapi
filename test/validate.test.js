@@ -1,41 +1,40 @@
-// const assert = require('chai').assert
-// const config = require('../src/config')
-// const validate = require('../src/validate')
+const assert = require('chai').assert
+const config = require('../src/config')
+const validate = require('../src/validate')
 
-// describe('validate', () => {
-//  it('should exist', () => {
-//    assert.isOk(validate)
-//    assert.isFunction(validate)
-//  })
+describe('validate', () => {
+  it('should exist', () => {
+    assert.isOk(validate)
+    assert.isFunction(validate)
+  })
 
-//  it('should error with no config', () => {
-//    assert.throws(validate)
-//    assert.isOk(validate(config))
-//  })
+  it('should error with no config', () => {
+    assert.throws(validate)
+  })
 
-//  it('should assign', () => {
-//    const a = { a: { a: 1 } }
-//    const b = Object.assign(a, {})
-//    assert.deepEqual(a, b)
-//    const c = Object.assign({}, a)
-//    assert.deepEqual(a, c)
-//    const d = Object.assign({ d: 1 }, a)
-//    assert.deepEqual(d, { a: { a: 1 }, d: 1 })
-//  })
+  it('should validate the generated config', () => {
+    const validated = validate({ ...config, testprop: true })
+    assert.isOk(validated.testprop)
+    assert.equal(validated.pkg.bash.id, 'bash')
+    assert.equal(validated.pkg.xinit.id, 'xinit')
+  })
 
-//  it('should validate config', () => {
-//    assert.isOk(validate(config))
-//    assert.isOk(validate(
-//      Object.assign({}, config, { extraprop: {} })
-//    ))
-//    assert.isNotOk(validate(
-//      Object.assign({}, config, { user: {} })
-//    ))
-//    assert.isNotOk(validate(
-//      Object.assign({}, config, { pkg: {} })
-//    ))
-//    assert.isOk(validate(config))
-//  })
+  it('should handle missing packages', () => {
+    const os = config.os
+    const paths = config.paths
+    const missingPkg = Object.assign({}, { os, paths })
+    const validated = validate(missingPkg)
+    assert.isNotOk(validated.isValid)
+  })
+
+  it('should handle bad paths', () => {
+    const brokenConfig = Object.assign({}, config)
+    assert.isOk(validate(brokenConfig).isValid)
+    brokenConfig.paths.pkgroot = 'notarealpath'
+    assert.isNotOk(validate(brokenConfig).isValid)
+  })
+
+  it('should handle missing pkgfiles')
 
 //  it('should validate the paths', () => {
 //    const c2 = Object.assign({}, config)
@@ -44,4 +43,4 @@
 //    assert.isNotOk(validate(c2))
 //  })
 //  // it('should validate pkg api')
-// })
+})

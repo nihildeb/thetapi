@@ -9,8 +9,7 @@ export THETAPI_HOME=$THETAPI_HOME
 [ -x "$(command -v node)" ] || \
   { echo >&2 "NodeJS not found"; exit 1; }
 
-[ -d "${THETAPI_HOME}/node_modules" ] || \
-  (cd "${THETAPI_HOME}" && npm i)
-
+# [ -d "${THETAPI_HOME}/node_modules" ] || \
+(cd "${THETAPI_HOME}" && npm i)
 (cd "${THETAPI_HOME}" && node index.js "$@")
 
