@@ -4,7 +4,7 @@
   "description": "Universal Little Box, Abundance of Features",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon index.js -w ./srv -w index.js",
     "test": "THETAPI_HOME=`pwd` mocha --no-color -w"
   },
   "repository": {

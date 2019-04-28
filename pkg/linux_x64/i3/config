@@ -10,11 +10,8 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 #exec --no-startup-id ~/.dropbox-dist/dropboxd
 #exec --no-startup-id /usr/bin/steam
-workspace 1 output DP-0
+#workspace 1 output DP-0
 #exec i3-sensible-terminal
-exec terminator
-exec firefox
-exec spotify
 #focus_follows_mouse no
 
 set $mod Mod1
